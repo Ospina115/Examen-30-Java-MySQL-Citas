@@ -1,7 +1,9 @@
 package com.examenjava;
+import com.examenjava.forms.LoginMenu;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        LoginMenu loginMenu = new LoginMenu();
+        loginMenu.setVisible(true);
     }
 }
