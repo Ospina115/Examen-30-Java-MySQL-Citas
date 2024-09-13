@@ -6,6 +6,8 @@ Joseph Samuel Ospina 13/09/2024
 
 El sistema de control de citas médicas permitirá la gestión de pacientes, médicos, especialidades y citas. Los usuarios podrán agendar, modificar o cancelar citas, mientras los administradores podrán gestionar la información de médicos, especialidades, y horarios.
 
+![](src/main/resources/database/public-db.png)
+
 ### **Requisitos Funcionales**:
 
 - **Gestión de Pacientes**: Crear, leer, actualizar y eliminar información de pacientes (nombre, dirección, teléfono, etc.).
