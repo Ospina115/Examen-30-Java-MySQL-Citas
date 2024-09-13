@@ -1,8 +1,8 @@
-package com.examenjava;
+package com.examenjava.medico;
 
-import com.examenjava.dao.MedicoDAO;
-import com.examenjava.model.Medico;
-import com.examenjava.utils.InputDialog;
+import com.examenjava.medico.MedicoDAO;
+import com.examenjava.medico.Medico;
+import com.examenjava.medico.InputDialog;
 
 import javax.swing.*;
 import java.util.List;

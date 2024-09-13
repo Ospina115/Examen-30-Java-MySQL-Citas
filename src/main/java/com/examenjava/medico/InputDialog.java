@@ -1,6 +1,6 @@
-package com.examenjava.utils;
+package com.examenjava.medico;
 
-import com.examenjava.model.Medico;
+import com.examenjava.medico.Medico;
 
 import javax.swing.*;
 import java.sql.Time;

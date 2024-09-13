@@ -1,7 +1,7 @@
-package com.examenjava.dao;
+package com.examenjava.cita;
 
 import com.examenjava.infrastructure.DatabaseConfig;
-import com.examenjava.model.Cita;
+import com.examenjava.cita.Cita;
 
 import javax.swing.*;
 import java.sql.*;

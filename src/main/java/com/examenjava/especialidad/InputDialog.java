@@ -1,4 +1,4 @@
-package com.examenjava.utils;
+package com.examenjava.especialidad;
 
 import com.examenjava.model.Especialidad;
 

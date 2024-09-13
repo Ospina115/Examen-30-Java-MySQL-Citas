@@ -1,6 +1,6 @@
-package com.examenjava.utils;
+package com.examenjava.cita;
 
-import com.examenjava.model.Cita;
+import com.examenjava.cita.Cita;
 
 import javax.swing.*;
 import java.time.LocalDateTime;

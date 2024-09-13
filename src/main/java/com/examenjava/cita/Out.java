@@ -1,7 +1,7 @@
 package com.examenjava;
 
-import com.examenjava.dao.CitaDAO;
-import com.examenjava.model.Cita;
+import com.examenjava.cita.CitaDAO;
+import com.examenjava.cita.Cita;
 import com.examenjava.utils.InputDialog;
 
 import javax.swing.*;

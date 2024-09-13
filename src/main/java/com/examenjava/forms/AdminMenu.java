@@ -58,6 +58,11 @@ public class AdminMenu extends javax.swing.JFrame {
 
         medicos.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
         medicos.setText("Gestion Medicos");
+        medicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                medicosActionPerformed(evt);
+            }
+        });
 
         especialidades.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
         especialidades.setText("Gestion Especialidades");
@@ -116,6 +121,36 @@ public class AdminMenu extends javax.swing.JFrame {
         LoginMenu loginMenu = new LoginMenu();
         loginMenu.setVisible(true);
     }//GEN-LAST:event_salirActionPerformed
+
+    private void medicosActionPerformed(java.awt.event.ActionEvent evt) {
+        while (true) {
+            String[] options = {"Crear", "Leer", "Actualizar", "Eliminar", "Listar", "Salir"};
+            int choice = JOptionPane.showOptionDialog(null, "Seleccione una opción", "CRUD Médico",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+    
+            switch (choice) {
+                case 0:
+                    Out.crearMedico();
+                    break;
+                case 1:
+                    Out.leerMedico();
+                    break;
+                case 2:
+                    Out.actualizarMedico();
+                    break;
+                case 3:
+                    Out.eliminarMedico();
+                    break;
+                case 4:
+                    Out.listarMedicos();
+                    break;
+                case 5:
+                    return;
+                default:
+                    break;
+            }
+        }
+    }
 
     private void pacientesActionPerformed(java.awt.event.ActionEvent evt) {
         while (true) {

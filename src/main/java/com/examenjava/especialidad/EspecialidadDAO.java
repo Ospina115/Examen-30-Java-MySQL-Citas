@@ -1,4 +1,4 @@
-package com.examenjava.dao;
+package com.examenjava.especialidad;
 
 import com.examenjava.infrastructure.DatabaseConfig;
 import com.examenjava.model.Especialidad;
