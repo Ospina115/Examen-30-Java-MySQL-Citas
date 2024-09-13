@@ -41,8 +41,8 @@ CREATE TABLE Cita (
 );
 
 CREATE TABLE users(
-   id INT AUTO_INCREMENT PRIMARY KEY,
-   enabled BOOLEAN,
-   username VARCHAR(12),
-   password VARCHAR(255)
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  enabled BOOLEAN,
+  username VARCHAR(12),
+  password VARCHAR(255)
 );

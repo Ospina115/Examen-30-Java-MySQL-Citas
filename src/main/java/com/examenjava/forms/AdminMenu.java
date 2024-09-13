@@ -3,7 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.examenjava.forms;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import com.examenjava.forms.LoginMenu;
+import com.examenjava.paciente.PacienteDAO;
+import com.examenjava.paciente.PacienteService;
 /**
  *
  * @author camper
@@ -42,6 +50,11 @@ public class AdminMenu extends javax.swing.JFrame {
 
         pacientes.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
         pacientes.setText("Gestion Pacientes");
+        pacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pacientesActionPerformed(evt);
+            }
+        });
 
         medicos.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
         medicos.setText("Gestion Medicos");
@@ -103,6 +116,133 @@ public class AdminMenu extends javax.swing.JFrame {
         LoginMenu loginMenu = new LoginMenu();
         loginMenu.setVisible(true);
     }//GEN-LAST:event_salirActionPerformed
+
+    private void pacientesActionPerformed(java.awt.event.ActionEvent evt) {
+        while (true) {
+            String[] options = {"Crear", "Leer", "Actualizar", "Eliminar", "Listar", "Salir"};
+            int choice = JOptionPane.showOptionDialog(null, "Seleccione una opción", "CRUD Paciente",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+            switch (choice) {
+                case 0:
+                    crearPaciente();
+                    break;
+                case 1:
+                    leerPaciente();
+                    break;
+                case 2:
+                    actualizarPaciente();
+                    break;
+                case 3:
+                    eliminarPaciente();
+                    break;
+                case 4:
+                    listarPacientes();
+                    break;
+                case 5:
+                    return;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void crearPaciente() {
+        try {
+            String nombre = JOptionPane.showInputDialog("Nombre:");
+            String apellido = JOptionPane.showInputDialog("Apellido:");
+            String fechaStr = JOptionPane.showInputDialog("Fecha de Nacimiento (yyyy-MM-dd):");
+            Date fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fechaStr);
+            String direccion = JOptionPane.showInputDialog("Dirección:");
+            String telefono = JOptionPane.showInputDialog("Teléfono:");
+            String email = JOptionPane.showInputDialog("Email:");
+
+            Paciente paciente = new Paciente(0, nombre, apellido, fechaNacimiento, direccion, telefono, email);
+            PacienteDAO pacienteDAO = new PacienteDAO();
+            pacienteDAO.crearPaciente(paciente);
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "Error en el formato de la fecha");
+        }
+    }
+
+    private void leerPaciente() {
+        try {
+            int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del paciente:"));
+            PacienteDAO pacienteDAO = new PacienteDAO();
+            Paciente paciente = pacienteDAO.leerPaciente(id);
+            if (paciente != null) {
+                JOptionPane.showMessageDialog(null, "Paciente encontrado:\n" +
+                        "ID: " + paciente.getId() + "\n" +
+                        "Nombre: " + paciente.getNombre() + "\n" +
+                        "Apellido: " + paciente.getApellido() + "\n" +
+                        "Fecha de Nacimiento: " + new SimpleDateFormat("yyyy-MM-dd").format(paciente.getFechaNacimiento()) + "\n" +
+                        "Dirección: " + paciente.getDireccion() + "\n" +
+                        "Teléfono: " + paciente.getTelefono() + "\n" +
+                        "Email: " + paciente.getEmail());
+            } else {
+                JOptionPane.showMessageDialog(null, "Paciente no encontrado");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error en el formato del ID");
+        }
+    }
+
+    private void actualizarPaciente() {
+        try {
+            int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del paciente a actualizar:"));
+            PacienteDAO pacienteDAO = new PacienteDAO();
+            Paciente pacienteExistente = pacienteDAO.leerPaciente(id);
+
+            if (pacienteExistente != null) {
+                String nombre = JOptionPane.showInputDialog("Nuevo Nombre:", pacienteExistente.getNombre());
+                String apellido = JOptionPane.showInputDialog("Nuevo Apellido:", pacienteExistente.getApellido());
+                String fechaStr = JOptionPane.showInputDialog("Nueva Fecha de Nacimiento (yyyy-MM-dd):", new SimpleDateFormat("yyyy-MM-dd").format(pacienteExistente.getFechaNacimiento()));
+                Date fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fechaStr);
+                String direccion = JOptionPane.showInputDialog("Nueva Dirección:", pacienteExistente.getDireccion());
+                String telefono = JOptionPane.showInputDialog("Nuevo Teléfono:", pacienteExistente.getTelefono());
+                String email = JOptionPane.showInputDialog("Nuevo Email:", pacienteExistente.getEmail());
+
+                Paciente pacienteActualizado = new Paciente(id, nombre, apellido, fechaNacimiento, direccion, telefono, email);
+                pacienteDAO.actualizarPaciente(pacienteActualizado);
+            } else {
+                JOptionPane.showMessageDialog(null, "Paciente no encontrado");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error en el formato del ID");
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "Error en el formato de la fecha");
+        }
+    }
+
+    private void eliminarPaciente() {
+        try {
+            int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del paciente a eliminar:"));
+            PacienteDAO pacienteDAO = new PacienteDAO();
+            pacienteDAO.eliminarPaciente(id);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error en el formato del ID");
+        }
+    }
+
+    private void listarPacientes() {
+        PacienteDAO pacienteDAO = new PacienteDAO();
+        List<Paciente> pacientes = pacienteDAO.obtenerPacientes();
+        if (pacientes.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay pacientes en la base de datos.");
+        } else {
+            StringBuilder sb = new StringBuilder();
+            for (Paciente paciente : pacientes) {
+                sb.append("ID: ").append(paciente.getId()).append("\n")
+                        .append("Nombre: ").append(paciente.getNombre()).append("\n")
+                        .append("Apellido: ").append(paciente.getApellido()).append("\n")
+                        .append("Fecha de Nacimiento: ").append(new SimpleDateFormat("yyyy-MM-dd").format(paciente.getFechaNacimiento())).append("\n")
+                        .append("Dirección: ").append(paciente.getDireccion()).append("\n")
+                        .append("Teléfono: ").append(paciente.getTelefono()).append("\n")
+                        .append("Email: ").append(paciente.getEmail()).append("\n\n");
+            }
+            JOptionPane.showMessageDialog(null, sb.toString());
+        }
+    }
 
     /**
      * @param args the command line arguments
